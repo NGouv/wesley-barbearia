@@ -2,6 +2,22 @@ const header = document.querySelector(".site-header");
 const menuToggle = document.querySelector(".menu-toggle");
 const primaryNav = document.querySelector(".primary-nav");
 const heroVideo = document.querySelector(".hero-video");
+const heroVideoSource = heroVideo.querySelector("source[data-src]");
+
+function loadHeroVideo() {
+  if (!heroVideoSource || heroVideoSource.hasAttribute("src")) {
+    return;
+  }
+
+  heroVideoSource.src = heroVideoSource.dataset.src;
+  heroVideo.load();
+}
+
+if (document.readyState === "complete") {
+  loadHeroVideo();
+} else {
+  window.addEventListener("load", loadHeroVideo, { once: true });
+}
 
 function updateHeader() {
   header.classList.toggle("is-scrolled", window.scrollY > 24);
